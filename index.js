@@ -1,5 +1,6 @@
 const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, DiscordAPIError, MessageReaction, } = require('discord.js')
 const { QuickDB } = require("quick.db")
+const { welcomeImage } = require('discord-welcome-card');
 require('dotenv').config();
 
 const database = new QuickDB()
@@ -44,6 +45,15 @@ client.on('messageCreate', async message => {
         }
 
     }
+
+})
+
+client.on('guildMemberAdd', async member => {
+
+    const image = await welcomeImage(member, { theme: 'dark' });
+
+    client.channels.cache.get(`826281153978957824`).send({ files: [image] })
+
 
 
 })

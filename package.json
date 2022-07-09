@@ -18,6 +18,8 @@
   "homepage": "https://github.com/ItsLimeNade/tiky#readme",
   "dependencies": {
     "better-sqlite3": "^7.6.0",
+    "canvas": "^2.9.3",
+    "discord-welcome-card": "^4.8.1",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
     "quick.db": "^9.0.5"
