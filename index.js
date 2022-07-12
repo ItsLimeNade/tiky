@@ -1,6 +1,6 @@
 const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, DiscordAPIError, MessageReaction, } = require('discord.js')
 const { QuickDB } = require("quick.db")
-const { welcomeImage } = require('discord-welcome-card');
+const { welcomeImage, drawCard } = require('discord-welcome-card');
 require('dotenv').config();
 
 const database = new QuickDB()
@@ -45,12 +45,48 @@ client.on('messageCreate', async message => {
         }
 
     }
+    if (message.content == 'test') {
+        const image = await drawCard({
+            text: {
+                theme: 'dark',
+                title: `Welcome ${message.author.tag}`,
+                text: `${client.guilds.resolve("797250791114276864").memberCount + 1}` + 'th member!',
+                color: `#ffffff`,
+            },
+            avatar: {
+                image: message.author.displayAvatarURL({ format: 'png' }),
+                outlineWidth: 5,
+                outlineColor: "#ffffff",
+            },
+            background: "https://cdn.discordapp.com/attachments/939946585708707962/996439413670281216/unknown.png?size=4096",
+            blur: 1,
+            border: true,
+            rounded: true,
+        });
+        client.channels.cache.get(`993887969440182282`).send({ files: [image] })
+    }
+
 
 })
 
 client.on('guildMemberAdd', async member => {
 
-    const image = await welcomeImage(member, { theme: 'dark' });
+    const image = await drawCard({
+        text: {
+            title: `Welcome ${member.user.tag}`,
+            text: `${client.guilds.resolve("797250791114276864").memberCount}` + ' member in King\'s server',
+            color: `#ffffff`,
+        },
+        avatar: {
+            image: member.user.displayAvatarURL({ format: 'png' }),
+            outlineWidth: 5,
+            outlineColor: "#ffffff",
+        },
+        background: "https://cdn.discordapp.com/attachments/939946585708707962/996439413670281216/unknown.png?size=4096",
+        blur: 1,
+        border: true,
+        rounded: true,
+    });
 
     client.channels.cache.get(`826281153978957824`).send({ files: [image] })
 
